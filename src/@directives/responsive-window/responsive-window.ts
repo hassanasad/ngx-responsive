@@ -19,11 +19,11 @@ import { PlatformService } from '../../@core/providers/platform-service/platform
 })
 export class ResponsiveWindowDirective implements OnInit, OnDestroy, DoCheck {
 
-    private _noRepeat: string;
-    private element: HTMLElement;
-    private _isEnabledForPlatform: boolean = null;
+    private _noRepeat!: string;
+    private element!: HTMLElement;
+    private _isEnabledForPlatform = false;
 
-    @Input('responsive-window') name: string;
+    @Input('responsive-window') name!: string;
 
     public currentBreakpoint$: Observable<string>;
 
@@ -84,7 +84,7 @@ export class ResponsiveWindowDirective implements OnInit, OnDestroy, DoCheck {
             return 'md';
         } else if (this._responsiveConfig.config.breakPoints.sm.max >= width && this._responsiveConfig.config.breakPoints.sm.min <= width) {
             return 'sm';
-        } else if (this._responsiveConfig.config.breakPoints.xs.max >= width) {
+        } else {
             return 'xs';
         }
     }

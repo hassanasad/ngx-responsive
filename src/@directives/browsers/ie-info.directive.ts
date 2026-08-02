@@ -20,7 +20,7 @@ export class IeInfoDirective extends IeInfo implements OnInit, OnDestroy {
     constructor(public _responsiveState: ResponsiveState,
         private viewContainer: ViewContainerRef,
         private cd: ChangeDetectorRef,
-        @Inject(PLATFORM_ID) protected _platformId
+        @Inject(PLATFORM_ID) protected _platformId: Object
     ) { super(_responsiveState, _platformId); }
     ngOnInit() {
         this.connect();

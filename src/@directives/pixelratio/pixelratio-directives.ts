@@ -87,10 +87,10 @@ export class Is4kDirective extends RESPONSIVE_BASE<any> {
 @Directive({ selector: 'pixel-ratio-info' })
 export class PixelRatioInfoDirective implements OnInit, OnDestroy {
 
-    public currentstate: string;
-    private _subscription: Subscription;
-    private noRepeat: string;
-    private _isEnabledForPlatform: boolean = null;
+    public currentstate!: string;
+    private _subscription!: Subscription;
+    private noRepeat!: string;
+    private _isEnabledForPlatform = false;
 
     @Input() set pixelratioInfo( grid_state: string[] | string ) {
         this.updateData( this.currentstate );

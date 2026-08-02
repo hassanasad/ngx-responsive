@@ -27,7 +27,7 @@ export function responsiveConfiguration(config: IResponsiveConfig) {
     return new ResponsiveConfig(config);
 }
 @NgModule({
-    declarations:
+    imports:
         [
             BOOTSTRAP_DIRECTIVES,
             BROWSER_DIRECTIVES,
@@ -53,7 +53,7 @@ export function responsiveConfiguration(config: IResponsiveConfig) {
         ]
 })
 export class ResponsiveModule {
-    public static forRoot(config: IResponsiveConfig = null): ModuleWithProviders<ResponsiveModule> {
+    public static forRoot(config: IResponsiveConfig | null = null): ModuleWithProviders<ResponsiveModule> {
         return {
             ngModule: ResponsiveModule,
             providers: [            {

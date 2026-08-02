@@ -19,7 +19,7 @@ export class DeviceStandardInfoDirective extends DeviceStandardInfo implements O
     constructor( protected _responsiveState: ResponsiveState,
         protected viewContainer: ViewContainerRef,
         protected cd: ChangeDetectorRef,
-        @Inject(PLATFORM_ID) protected _platformId
+        @Inject(PLATFORM_ID) protected _platformId: Object
     ) { super(_responsiveState, _platformId); }
     ngOnInit() {
        this.connect();

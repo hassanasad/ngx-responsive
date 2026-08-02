@@ -13,6 +13,6 @@ import { UserAgentInfo } from './useragent-info';
 export class UserAgentInfoRx extends UserAgentInfo  {
     constructor( 
         public _responsiveState: ResponsiveState,
-        @Inject(PLATFORM_ID) protected _platformId
+        @Inject(PLATFORM_ID) protected _platformId: Object
     ) { super(_responsiveState, _platformId); }
 }

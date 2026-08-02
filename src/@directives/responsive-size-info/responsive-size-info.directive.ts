@@ -12,7 +12,7 @@ import { PlatformService } from '../../@core/providers/platform-service/platform
 
 @Directive({ selector: 'responsiveSizeInfo' })
 export class ResponsiveSizeInfoDirective extends ResponsiveSizeInfo implements OnInit, OnDestroy {
-    public currentstate: string;
+    public currentstate!: string;
     @Input() set responsiveSizeInfo(grid_state: string[] | string) {
         this._updateData(this.currentstate);
     }

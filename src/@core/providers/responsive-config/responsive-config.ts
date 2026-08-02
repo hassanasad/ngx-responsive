@@ -11,6 +11,6 @@ import { IResponsiveConfig } from '../../interfaces/responsive-config.interfaces
 export class ResponsiveConfig {
     public config: IResponsiveConfig;
     constructor(@Inject('config') private _config?: IResponsiveConfig) {
-       this.config = this._config;
+       this.config = this._config!;
     }
 }

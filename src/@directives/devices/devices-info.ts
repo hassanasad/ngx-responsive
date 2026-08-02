@@ -14,12 +14,12 @@ import { Observable } from 'rxjs';
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
 
 export abstract class DevicesInfo {
-    public currentstate: string;
-    public _subscription: Subscription;
-    private _isBrowser: boolean = null;
+    public currentstate!: string;
+    public _subscription!: Subscription;
+    private _isBrowser = false;
     public replaySubject$: ReplaySubject<any> = new ReplaySubject();
     constructor(protected _responsiveState: ResponsiveState,
-        @Inject(PLATFORM_ID) protected _platformId
+        @Inject(PLATFORM_ID) protected _platformId: Object
     ) {
         this._isBrowser = isPlatformBrowser(this._platformId);
     }

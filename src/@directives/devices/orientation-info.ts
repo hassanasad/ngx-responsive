@@ -15,9 +15,9 @@ import { ResponsiveState } from '../../@core/providers/responsive-state/responsi
 import { PlatformService } from '../../@core/providers/platform-service/platform.service';
 
 export abstract class OrientationInfo {
-    public currentstate: string;
-    private _subscription: Subscription;
-    private _isEnabledForPlatform: boolean = null;
+    public currentstate!: string;
+    private _subscription!: Subscription;
+    private _isEnabledForPlatform = false;
     public replaySubject$: ReplaySubject<any> = new ReplaySubject();
     constructor(protected _responsiveState: ResponsiveState,
         platformService: PlatformService

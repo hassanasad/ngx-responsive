@@ -23,19 +23,19 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
 
     private _noRepeat = 0;
     private _sizes_grid_state: any;
-    private _others_grid_state: string[];
-    private _directive: string;
+    private _others_grid_state!: string[];
+    private _directive!: string;
 
-    private _subscription_Bootstrap: Subscription;
-    private _subscription_Browser: Subscription;
-    private _subscription_Pixel_Ratio: Subscription;
-    private _subscription_Device: Subscription;
-    private _subscription_Orientation: Subscription;
-    private _subscription_Standard: Subscription;
-    private _subscription_IE_Version: Subscription;
-    private _subscription_custom_sizes: Subscription;
+    private _subscription_Bootstrap!: Subscription;
+    private _subscription_Browser!: Subscription;
+    private _subscription_Pixel_Ratio!: Subscription;
+    private _subscription_Device!: Subscription;
+    private _subscription_Orientation!: Subscription;
+    private _subscription_Standard!: Subscription;
+    private _subscription_IE_Version!: Subscription;
+    private _subscription_custom_sizes!: Subscription;
 
-    protected _showWhenTrue: boolean;
+    protected _showWhenTrue!: boolean;
 
     private set_active_subscriptions: IResponsiveSubscriptions = {
         bootstrap: false,

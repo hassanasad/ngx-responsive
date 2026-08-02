@@ -20,7 +20,7 @@ import { PlatformService } from '../../@core/providers/platform-service/platform
     })
 export class ResponsiveDirective implements OnDestroy {
 
-    private _config: string | string[];
+    private _config!: string | string[];
     @Input() set responsive(config: string | string[]) {
         this._config = config;
         this.init_responsive();
@@ -30,7 +30,7 @@ export class ResponsiveDirective implements OnDestroy {
     }
     
     // @Input() responsiveContainer: ResponsiveWindowDirective;
-    private _responsiveContainer:ResponsiveWindowDirective;
+    private _responsiveContainer!:ResponsiveWindowDirective;
     @Input() 
     set responsiveContainer(value: ResponsiveWindowDirective) {
       this._responsiveContainer = value;
@@ -48,7 +48,7 @@ export class ResponsiveDirective implements OnDestroy {
     @Output() changes: EventEmitter<any> = new EventEmitter();
     private _windows = null;
     private _window = null;
-    private _isEnabledForPlatform: boolean = null;
+    private _isEnabledForPlatform = false;
     public set_values: IResponsivePattern = {
         bootstrap: '',
         browser: '',
@@ -83,19 +83,19 @@ export class ResponsiveDirective implements OnDestroy {
             sizes: false
         };
 
-    private _subscription_Bootstrap: Subscription;
-    private _subscription_Browser: Subscription;
-    private _subscription_Pixel_Ratio: Subscription;
-    private _subscription_Device: Subscription;
-    private _subscription_Orientation: Subscription;
-    private _subscription_Standard: Subscription;
-    private _subscription_IE_Version: Subscription;
-    private _subscription_custom_sizes: Subscription;
+    private _subscription_Bootstrap!: Subscription;
+    private _subscription_Browser!: Subscription;
+    private _subscription_Pixel_Ratio!: Subscription;
+    private _subscription_Device!: Subscription;
+    private _subscription_Orientation!: Subscription;
+    private _subscription_Standard!: Subscription;
+    private _subscription_IE_Version!: Subscription;
+    private _subscription_custom_sizes!: Subscription;
 
 
     protected _showWhenTrue = true;
     private _globalNoRepeat = 0;
-    private _noRepeatBootstrapName: string;
+    private _noRepeatBootstrapName!: string;
 
     private _bootstrapNoRepeat = 0;
     private _deviceNoRepeat = 0;

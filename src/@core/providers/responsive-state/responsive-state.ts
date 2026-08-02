@@ -29,23 +29,23 @@ import { PlatformService } from '../platform-service/platform.service';
 @Injectable()
 export class ResponsiveState {
 
-    public _windows: Object = {};
+    public _windows: { [name: string]: any } = {};
     public _window: any = null;
 
-    public elemento$: Observable<string>;
-    public ancho$: Observable<number>;
-    public browser$: Observable<string>;
-    public pixel$: Observable<string>;
-    public device$: Observable<any>;
-    public orientation$: Observable<any>;
-    public standard$: Observable<any>;
-    public ieVersion$: Observable<any>;
-    public userAgent$: Observable<any>;
+    public elemento$!: Observable<string>;
+    public ancho$!: Observable<number>;
+    public browser$!: Observable<string>;
+    public pixel$!: Observable<string>;
+    public device$!: Observable<any>;
+    public orientation$!: Observable<any>;
+    public standard$!: Observable<any>;
+    public ieVersion$!: Observable<any>;
+    public userAgent$!: Observable<any>;
 
-    private _screenWidth: number = null;
-    private _screenHeight: number = null;
+    private _screenWidth = 0;
+    private _screenHeight = 0;
     private _userAgent: any = null;
-    private isEnabledForPlatform: boolean = null;
+    private isEnabledForPlatform = false;
 
     private _forceRefresh$: BehaviorSubject<null> = new BehaviorSubject<null>(null);
 
@@ -117,7 +117,7 @@ export class ResponsiveState {
     * @param rw
     * @param _window
     */
-    public registerWindow(rw: ResponsiveWindowDirective, _window = null) {
+    public registerWindow(rw: ResponsiveWindowDirective, _window: any = null) {
         if (rw.name && !this._windows[rw.name]) {
             this._windows[rw.name] = rw;
             if (_window !== null) {
@@ -131,7 +131,7 @@ export class ResponsiveState {
     * @param rw
     * @param _window
     */
-    public unregisterWindow(rw: ResponsiveWindowDirective, _window = null) {
+    public unregisterWindow(rw: ResponsiveWindowDirective, _window: any = null) {
         for (const rwn in this._windows) {
             if (this._windows[rwn] === rw) {
                 delete (this._windows[rwn]);
@@ -146,7 +146,7 @@ export class ResponsiveState {
     * @name getWidth
     * @param windowName
     */
-    public getWidth(windowName: string = null): any {
+    public getWidth(windowName: string | null = null): any {
         if (this._windows !== null && this.isEnabledForPlatform) {
             if (windowName && this._windows[windowName]) {
                 return this._windows[windowName].getWidth();
@@ -434,8 +434,8 @@ export class ResponsiveState {
         let _gameDevice = null;
         if (this._userAgent !== null) {
             for (let _reg in REG_GAME_DEVICES) {
-                if (REG_GAME_DEVICES[_reg].REG.test(this._userAgent)) {
-                    _gameDevice = REG_GAME_DEVICES[_reg].VALUE;
+                if ((REG_GAME_DEVICES as any)[_reg].REG.test(this._userAgent)) {
+                    _gameDevice = (REG_GAME_DEVICES as any)[_reg].VALUE;
                 }
             }
         }
@@ -446,7 +446,7 @@ export class ResponsiveState {
      * @name smartTv
      */
     public smartTv(): TSmartTv {
-        let _smartTv = null;
+        let _smartTv: any = null;
         if (this._userAgent !== null) {
             if (REG_SMARTS_TV.CHROMECAST.REG.test(this._userAgent)) {
                 _smartTv = REG_SMARTS_TV.CHROMECAST.VALUE;
@@ -512,8 +512,8 @@ export class ResponsiveState {
         let _mobile = null;
         if (this._userAgent !== null) {
             for (let _reg in REG_MOBILES) {
-                if (REG_MOBILES[_reg].REG.test(this._userAgent)) {
-                    _mobile = REG_MOBILES[_reg].VALUE;
+                if ((REG_MOBILES as any)[_reg].REG.test(this._userAgent)) {
+                    _mobile = (REG_MOBILES as any)[_reg].VALUE;
                 }
             }
             if (_mobile === null && this.isMobile()) {
@@ -530,8 +530,8 @@ export class ResponsiveState {
         let _windows = null;
         if (this._userAgent !== null) {
             for (let _reg in REG_WINDOWS_OS_VERSION) {
-                if (REG_WINDOWS_OS_VERSION[_reg].REG.test(this._userAgent)) {
-                    _windows = REG_WINDOWS_OS_VERSION[_reg].VALUE;
+                if ((REG_WINDOWS_OS_VERSION as any)[_reg].REG.test(this._userAgent)) {
+                    _windows = (REG_WINDOWS_OS_VERSION as any)[_reg].VALUE;
                 }
             }
             if (_windows === null && this.isDesktop() && this.isWindows()) {
@@ -548,8 +548,8 @@ export class ResponsiveState {
         let _linux: TLinuxOS = null;
         if (this._userAgent !== null) {
             for (let _reg in REG_LINUX_OS) {
-                if (REG_LINUX_OS[_reg].REG.test(this._userAgent)) {
-                    _linux = REG_LINUX_OS[_reg].VALUE;
+                if ((REG_LINUX_OS as any)[_reg].REG.test(this._userAgent)) {
+                    _linux = (REG_LINUX_OS as any)[_reg].VALUE;
                 }
             }
             if (_linux === null && this.isDesktop() && this.isLinux()) {

@@ -10,6 +10,7 @@ export interface IResponsivePattern {
 }
 
 export interface IResponsiveSubscriptions {
+    [key: string]: boolean | undefined;
     bootstrap?: boolean;
     browser?: boolean;
     device?: boolean;

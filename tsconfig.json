@@ -1,33 +1,29 @@
 {
     "compilerOptions": {
-      "baseUrl": ".",
       "experimentalDecorators": true,
       "strict": true,
-      "moduleResolution": "node",
-      "strictNullChecks": false,
-      "noImplicitAny": false,
-      "removeComments": true,
-      "rootDir": ".",
+      "moduleResolution": "bundler",
+      "module": "es2022",
       "sourceMap": true,
       "inlineSources": true,
+      "declaration": true,
       "target": "ES2022",
       "skipLibCheck": true,
       "lib": [
-        "es2020",
+        "ES2022",
         "dom"
-      ],
-      "typeRoots": [
-        "node_modules/@types/"
       ],
       "useDefineForClassFields": false
     },
+    "include": [
+        "src/**/*.ts"
+    ],
     "exclude": [
         "node_modules",
-        "examples"
+        "examples",
+        "**/*.spec.ts"
     ],
     "angularCompilerOptions": {
-        "genDir": "./dist",
-        "skipMetadataEmit": false,
         "skipTemplateCodegen": true,
         "strictTemplates": true
     }

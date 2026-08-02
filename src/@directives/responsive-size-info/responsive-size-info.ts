@@ -13,8 +13,8 @@ import { ResponsiveState } from '../../@core/providers/responsive-state/responsi
 import { PlatformService } from '../../@core/providers/platform-service/platform.service';
 
 export abstract class ResponsiveSizeInfo {
-    private _subscription: Subscription;
-    private _isEnabledForPlatform: boolean = null;
+    private _subscription!: Subscription;
+    private _isEnabledForPlatform = false;
     public replaySubject$: ReplaySubject<any> = new ReplaySubject<any>();
     constructor( public _responsiveState: ResponsiveState,
         platformService: PlatformService
