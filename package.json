@@ -3,7 +3,9 @@
   "version": "14.0.0",
   "description": "Superset of RESPONSIVE DIRECTIVES to show or hide items according to the size of the device screen and other features in Angular",
   "scripts": {
-    "build": "ng-packagr -p ng-package.json"
+    "build": "ng-packagr -p ng-package.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
@@ -56,11 +58,18 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.6.4",
+    "@analogjs/vitest-angular": "^2.6.4",
+    "@angular/build": "^22.1.2",
     "@angular/common": "^22.1.0",
     "@angular/compiler": "^22.1.0",
     "@angular/compiler-cli": "^22.1.0",
     "@angular/core": "^22.1.0",
+    "@angular/platform-browser": "^22.1.0",
+    "@angular/platform-browser-dynamic": "^22.1.0",
+    "@oxc-project/runtime": "^0.142.0",
     "@types/node": "^22.10.0",
+    "jsdom": "^30.0.1",
     "ng-packagr": "^22.1.0",
     "rxjs": "~7.8.2",
     "typescript": "~6.0.3",
