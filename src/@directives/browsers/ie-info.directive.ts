@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { EventEmitter, Directive, Input, Output, TemplateRef, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { EventEmitter, Directive, Input, Output, TemplateRef, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef , output } from '@angular/core';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class IeInfoDirective extends IeInfo implements OnInit, OnDestroy {
     @Input() set ieInfo(grid_state: string[] | string) {
         this._updateData(this.currentstate);
     }
-    @Output() public ieVersion: EventEmitter<any> = new EventEmitter();
+    readonly ieVersion = output<any>();
     constructor(public _responsiveState: ResponsiveState,
         private viewContainer: ViewContainerRef,
         private cd: ChangeDetectorRef,

@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { EventEmitter, Directive, Output, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { EventEmitter, Directive, Output, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef , output } from '@angular/core';
 
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
 import { OrientationInfo } from './orientation-info';
@@ -12,7 +12,7 @@ import { PlatformService } from '../../@core/providers/platform-service/platform
 
 @Directive({ selector: 'orientation-info' })
 export class OrientationInfoDirective extends OrientationInfo implements OnInit, OnDestroy {
-    @Output() public orientation: EventEmitter<any> = new EventEmitter();
+    readonly orientation = output<any>();
     constructor(protected _responsiveState: ResponsiveState,
         protected viewContainer: ViewContainerRef,
         protected cd: ChangeDetectorRef,

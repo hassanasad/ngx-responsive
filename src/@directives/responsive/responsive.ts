@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { Output, EventEmitter, Directive, Input, TemplateRef, ViewContainerRef, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Output, EventEmitter, Directive, Input, TemplateRef, ViewContainerRef, OnDestroy, ChangeDetectorRef , output } from '@angular/core';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -45,7 +45,7 @@ export class ResponsiveDirective implements OnDestroy {
         return this._responsiveContainer;
     }
 
-    @Output() changes: EventEmitter<any> = new EventEmitter();
+    readonly changes = output<any>();
     private _windows = null;
     private _window = null;
     private _isEnabledForPlatform = false;

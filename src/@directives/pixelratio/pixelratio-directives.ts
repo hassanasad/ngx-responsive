@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { Directive, Input, Output, EventEmitter, TemplateRef, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, TemplateRef, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef , output } from '@angular/core';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -96,7 +96,7 @@ export class PixelRatioInfoDirective implements OnInit, OnDestroy {
         this.updateData( this.currentstate );
     }
 
-    @Output() pixelratio: EventEmitter<any> = new EventEmitter();
+    readonly pixelratio = output<any>();
 
     constructor(
         private _responsiveState: ResponsiveState,

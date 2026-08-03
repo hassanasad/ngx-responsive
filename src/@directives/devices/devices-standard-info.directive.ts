@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { EventEmitter, Directive, Input, Output, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { EventEmitter, Directive, Input, Output, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef , output } from '@angular/core';
 import { PLATFORM_ID, Inject } from '@angular/core';
 
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
@@ -15,7 +15,7 @@ export class DeviceStandardInfoDirective extends DeviceStandardInfo implements O
     @Input() set deviceStandardInfo( grid_state: string[] | string ) {
         this._updateData( this.currentstate );
     }
-    @Output() public standard: EventEmitter<any> = new EventEmitter();
+    readonly standard = output<any>();
     constructor( protected _responsiveState: ResponsiveState,
         protected viewContainer: ViewContainerRef,
         protected cd: ChangeDetectorRef,

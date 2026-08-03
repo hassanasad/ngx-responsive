@@ -5,7 +5,7 @@
  *
  * @license MIT
  */
-import { EventEmitter, Directive, Input, Output, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { EventEmitter, Directive, Input, Output, OnInit, OnDestroy, ChangeDetectorRef , output } from '@angular/core';
 
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
 import { BrowserInfo } from './browser-info';
@@ -15,7 +15,7 @@ import { PlatformService } from '../../@core/providers/platform-service/platform
     selector: 'browser-info'
 })
 export class BrowserInfoDirective extends BrowserInfo implements OnInit, OnDestroy {
-    @Output() public browser: EventEmitter<any> = new EventEmitter();
+    readonly browser = output<any>();
     @Input() set browserInfo(grid_state: string[] | string) {
         this._updateData(this.currentstate);
     }

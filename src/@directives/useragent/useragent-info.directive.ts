@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { Output, EventEmitter, Directive, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import { Output, EventEmitter, Directive, OnInit, OnDestroy, ChangeDetectorRef, output } from '@angular/core';
 
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
 import { UserAgentInfo } from './useragent-info';
@@ -15,7 +15,7 @@ import { PlatformService } from '../../@core/providers/platform-service/platform
     selector: 'user-agent-info'
 })
 export class UserAgentInfoDirective extends UserAgentInfo implements OnInit, OnDestroy {
-    @Output() info: EventEmitter<any> = new EventEmitter();
+    readonly info = output<any>();
     constructor(
         public _responsiveState: ResponsiveState,
         public cd: ChangeDetectorRef,
