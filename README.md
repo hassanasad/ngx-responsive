@@ -1,10 +1,8 @@
-# ngx-responsive
+# DEPRECATED LIBRARY - no longer actively maintained.
 
 # Introduction
 
 Superset of **RESPONSIVE DIRECTIVES** to show or hide items according to the size of the device screen and other features in Angular.
-
-Updated for **Angular 22** — the directives are standalone, signal-based, and zoneless-compatible (no `zone.js` dependency). Supports Angular 20–22.
 
 ```bash
 npm i @viablelogic/ngx-responsive
