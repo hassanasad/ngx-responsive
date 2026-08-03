@@ -96,7 +96,12 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
         this._directive = directive;
     }
 
+    // Subclasses implement this to call setGrid() with their state/directive type.
+    // It runs before the subscriptions are wired up (previously done in the @Input setter).
+    protected configure(): void {}
+
     public ngOnInit() {
+        this.configure();
         if (this._isEnabledForPlatform) {
             if (this.set_active_subscriptions.bootstrap) {
                 this._subscription_Bootstrap = this._responsiveState.elemento$.subscribe(this.updateView.bind(this));

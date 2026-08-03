@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { Directive, Input, TemplateRef, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, ChangeDetectorRef , input } from '@angular/core';
 
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
 import { RESPONSIVE_BASE } from '../../@core/providers/responsive-base/responsive-base';
@@ -18,7 +18,9 @@ export class IsSmartTvDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'smarttv';
     protected _showWhenTrue = true;
 
-    @Input() set isSmartTv( grid_state: string[]|string ) {
+    readonly isSmartTv = input<string[]|string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'device' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -39,7 +41,9 @@ export class IsDesktopDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'desktop';
     protected _showWhenTrue = true;
 
-    @Input() set isDesktop( grid_state: string[] | string ) {
+    readonly isDesktop = input<string[] | string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'device' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -60,7 +64,9 @@ export class IsTabletDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'tablet';
     protected _showWhenTrue = true;
 
-    @Input() set isTablet( grid_state: string[] | string ) {
+    readonly isTablet = input<string[] | string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'device' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -81,7 +87,9 @@ export class IsMobileDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'mobile';
     protected _showWhenTrue = true;
 
-    @Input() set isMobile( grid_state: string[] | string ) {
+    readonly isMobile = input<string[] | string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'device' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -102,8 +110,10 @@ export class ShowItDeviceDirective extends RESPONSIVE_BASE<any> {
 
     protected _showWhenTrue = true;
 
-    @Input() set showItDevice( grid_state: string[] | string ) {
-        this.setGrid( grid_state, 'device' );
+    readonly showItDevice = input<string[] | string>();
+
+    protected override configure(): void {
+        this.setGrid( this.showItDevice(), 'device' );
     }
     constructor( templateRef: TemplateRef<any>,
                  viewContainer: ViewContainerRef,
@@ -122,9 +132,10 @@ export class HideItDeviceDirective extends RESPONSIVE_BASE<any> {
 
     protected _showWhenTrue = false;
 
-    @Input() set hideItDevice( grid_state: string[] | string )
-    {
-        this.setGrid( grid_state, 'device' );
+    readonly hideItDevice = input<string[] | string>();
+
+    protected override configure(): void {
+        this.setGrid( this.hideItDevice(), 'device' );
     }
     constructor( templateRef: TemplateRef<any>,
                  viewContainer: ViewContainerRef,
@@ -145,7 +156,9 @@ export class IsIphoneDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'iphone';
     protected _showWhenTrue = true;
 
-    @Input() set isIphone( grid_state: string[]|string ) {
+    readonly isIphone = input<string[]|string>();
+
+    protected override configure(): void {
         this.setGrid(this._state, 'standard');
     }
     constructor( templateRef: TemplateRef<any>,
@@ -167,7 +180,9 @@ export class IsIpadDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'iphone';
     protected _showWhenTrue = true;
 
-    @Input() set isIphone(grid_state: string[] | string ) {
+    readonly isIphone = input<string[] | string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'standard' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -189,7 +204,9 @@ export class IsAndroidMobileDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'android mobile';
     protected _showWhenTrue = true;
 
-    @Input() set isAndroidMobile( grid_state: string[] | string ) {
+    readonly isAndroidMobile = input<string[] | string>();
+
+    protected override configure(): void {
         this.setGrid(this._state, 'standard');
     }
 
@@ -212,7 +229,9 @@ export class IsAndroidTabletDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'android tablet';
     protected _showWhenTrue = true;
 
-    @Input() set isAndroidTablet( grid_state: string[] | string ) {
+    readonly isAndroidTablet = input<string[] | string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'standard' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -235,7 +254,9 @@ export class IsWindowsPhoneDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'windows phone';
     protected _showWhenTrue = true;
 
-    @Input() set isWindowsPhone(grid_state: string[]|string) {
+    readonly isWindowsPhone = input<string[]|string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'standard' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -257,8 +278,10 @@ export class ShowItStandardDirective extends RESPONSIVE_BASE<any> {
 
     protected _showWhenTrue = true;
 
-    @Input() set showItStandard( grid_state: string[] | string ) {
-        this.setGrid( grid_state, 'standard' );
+    readonly showItStandard = input<string[] | string>();
+
+    protected override configure(): void {
+        this.setGrid( this.showItStandard(), 'standard' );
     }
     constructor( templateRef: TemplateRef<any>,
                  viewContainer: ViewContainerRef,
@@ -278,8 +301,10 @@ export class HideItStandardDirective extends RESPONSIVE_BASE<any> {
 
     protected _showWhenTrue = false;
 
-    @Input() set hideItStandard( grid_state: string[] | string ) {
-        this.setGrid( grid_state, 'standard' );
+    readonly hideItStandard = input<string[] | string>();
+
+    protected override configure(): void {
+        this.setGrid( this.hideItStandard(), 'standard' );
     }
     constructor( templateRef: TemplateRef<any>,
                  viewContainer: ViewContainerRef,
@@ -300,7 +325,9 @@ export class IsPortraitDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'portrait';
     protected _showWhenTrue = false;
 
-    @Input() set isPortrait( grid_state: string ) {
+    readonly isPortrait = input<string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'orientation' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -322,7 +349,9 @@ export class IsLandscapeDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'landscape';
     protected _showWhenTrue = false;
 
-    @Input() set isLandscape( grid_state: string ) {
+    readonly isLandscape = input<string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'orientation' );
     }
     constructor( templateRef: TemplateRef<any>,

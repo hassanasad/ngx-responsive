@@ -3,7 +3,7 @@
  *  @description bootstrap directives
  *  @license MIT
  */
-import { Directive, Input, TemplateRef, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, ChangeDetectorRef , input } from '@angular/core';
 import { PLATFORM_ID, Inject } from '@angular/core';
 
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
@@ -129,8 +129,10 @@ export class XsDirective extends RESPONSIVE_BASE<any> {
 })
 export class ShowItBootstrapDirective extends RESPONSIVE_BASE<any> {
     protected _showWhenTrue = true;
-    @Input() set showItBootstrap( grid_state: string[] | string ) {
-        this.setGrid( grid_state, 'bootstrap' );
+    readonly showItBootstrap = input<string[] | string>();
+
+    protected override configure(): void {
+        this.setGrid( this.showItBootstrap(), 'bootstrap' );
     }
     constructor( templateRef: TemplateRef<any>,
                  viewContainer: ViewContainerRef,
@@ -149,8 +151,10 @@ export class HideItBootstrapDirective extends RESPONSIVE_BASE<any> {
 
     protected _showWhenTrue = false;
 
-    @Input() set hideItBootstrap( grid_state: string[] | string ) {
-        this.setGrid( grid_state, 'bootstrap' );
+    readonly hideItBootstrap = input<string[] | string>();
+
+    protected override configure(): void {
+        this.setGrid( this.hideItBootstrap(), 'bootstrap' );
     }
     constructor( templateRef: TemplateRef<any>,
                  viewContainer: ViewContainerRef,

@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { Directive, Input, Output, EventEmitter, TemplateRef, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef , output } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, TemplateRef, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef , output , input } from '@angular/core';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -22,7 +22,9 @@ export class Is1xPixelDirective extends RESPONSIVE_BASE<any> {
     protected _state = '1x';
     protected _showWhenTrue = true;
 
-    @Input() set is1xPixel( grid_state: string ) {
+    readonly is1xPixel = input<string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'pixelratio' );
     }
     constructor ( templateRef: TemplateRef<any>,
@@ -46,7 +48,9 @@ export class IsRetinaDirective extends RESPONSIVE_BASE<any> {
     protected _state = 'retina';
     protected _showWhenTrue = true;
 
-    @Input() set isRetina( grid_state: string ) {
+    readonly isRetina = input<string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'pixelratio' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -69,7 +73,9 @@ export class Is4kDirective extends RESPONSIVE_BASE<any> {
     protected _state = '4k';
     protected _showWhenTrue = true;
 
-    @Input() set isRetina( grid_state: string ) {
+    readonly isRetina = input<string>();
+
+    protected override configure(): void {
         this.setGrid( this._state, 'pixelratio' );
     }
     constructor( templateRef: TemplateRef<any>,
@@ -92,10 +98,7 @@ export class PixelRatioInfoDirective implements OnInit, OnDestroy {
     private noRepeat!: string;
     private _isEnabledForPlatform = false;
 
-    @Input() set pixelratioInfo( grid_state: string[] | string ) {
-        this.updateData( this.currentstate );
-    }
-
+    readonly pixelratioInfo = input<string[] | string>();
     readonly pixelratio = output<any>();
 
     constructor(
