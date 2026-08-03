@@ -9,7 +9,6 @@ import { IBrowserNames } from '../interfaces';
 export const BROWSER_NAMES: IBrowserNames = {
     CHROME: 'chrome',
     FIREFOX: 'firefox',
-    IE:  'ie',
     SAFARI: 'safari',
     OPERA: 'opera',
     SILK: 'silk',

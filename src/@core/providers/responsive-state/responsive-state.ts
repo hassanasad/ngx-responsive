@@ -16,8 +16,7 @@ import { ResponsiveWindowDirective } from '../../../@directives';
 import {
     REG_TABLETS, REG_MOBILES, REG_SMARTS_TV, REG_BROWSERS, REG_SORT_NAMES,
     REG_GAME_DEVICES, REG_BOTS, REG_OS, REG_WINDOWS_OS_VERSION, REG_LINUX_OS,
-    USER_AGENT, REG_IE_VERSIONS, TABLET, WINDOWS_OS, LINUX_OS, MOBILE,
-    IE_VERSIONS
+    USER_AGENT, TABLET, WINDOWS_OS, LINUX_OS, MOBILE
 } from '../../constants';
 import {
     TLinuxOS, TWindowsOS, TTablet, TMobile,
@@ -39,7 +38,6 @@ export class ResponsiveState {
     public device$!: Observable<any>;
     public orientation$!: Observable<any>;
     public standard$!: Observable<any>;
-    public ieVersion$!: Observable<any>;
     public userAgent$!: Observable<any>;
 
     private _screenWidth = 0;
@@ -103,7 +101,6 @@ export class ResponsiveState {
             this.device$ = _device$.pipe(map(this.deviceDetection.bind(this)));
             this.orientation$ = _orientation$.pipe(map(this.orientationDevice.bind(this)));
             this.standard$ = _device$.pipe(map(this.standardDevices.bind(this)));
-            this.ieVersion$ = _device$.pipe(map(this.ieVersionDetect.bind(this)));
             this.userAgent$ = _userAgent$.pipe(map(this.userAgentData.bind(this)));
         }
     }
@@ -274,7 +271,6 @@ export class ResponsiveState {
             return USER_AGENT;
         }
         const DEFAULT_USER_AGENT_VALUE = '';
-        const _ieVersionState = (this.ieVersionDetect() !== null);
         const _isGameDevice = this.isGameDevice();
         const _isSMART = this.isSMART();
         const _isDesktop = this.isDesktop();
@@ -286,10 +282,6 @@ export class ResponsiveState {
             device: this.deviceDetection(),
             browser: this.browserName(),
             pixelratio: this.pixelRatio(),
-            ie_version: {
-                name: (_ieVersionState) ? this.ieVersionDetect() : DEFAULT_USER_AGENT_VALUE,
-                state: _ieVersionState
-            },
             game_device: {
                 name: (_isGameDevice) ? this.gameDevices() : DEFAULT_USER_AGENT_VALUE,
                 state: _isGameDevice
@@ -361,56 +353,16 @@ export class ResponsiveState {
     }
 
     /**
-     * @name ieVersionDetect
-     */
-    public ieVersionDetect(): any {
-        if (this.isEnabledForPlatform) {
-            const _userAgent = this.getUserAgent();
-            const msie = _userAgent.indexOf('msie ');
-            let _ieVersion = null;
-            if (REG_IE_VERSIONS.MS_MSIE.REG.test(_userAgent)) {
-                _ieVersion = parseInt(_userAgent.substring(msie + 5, _userAgent.indexOf('.', msie)), 10);
-                if (_ieVersion === 7) {
-                    return IE_VERSIONS.IE_7;
-                } else if (_ieVersion == 8) {
-                    return IE_VERSIONS.IE_8;
-                } else if (_ieVersion == 9) {
-                    return IE_VERSIONS.IE_9;
-                } else if (_ieVersion == 10) {
-                    return IE_VERSIONS.IE_10;
-                }
-            }
-            // let trident = this._userAgent.indexOf('trident/')
-            if (REG_IE_VERSIONS.MS_TRIDENT.REG.test(_userAgent)) {
-                let _rv = _userAgent.indexOf('rv:');
-                _ieVersion = parseInt(_userAgent.substring(_rv + 3, _userAgent.indexOf('.', _rv)), 10);
-                if (_ieVersion == 11) {
-                    return IE_VERSIONS.IE_11;
-                }
-            }
-
-            // let edge = this._userAgent.indexOf('Edg/')
-            if (REG_IE_VERSIONS.MS_EDGE.REG.test(_userAgent)) {
-                return IE_VERSIONS.IE_12;
-            }
-        }
-        return null;
-    }
-
-    /**
      * @name browserName
      */
     public browserName(): any {
         let _browserName = null;
         if (this.isEnabledForPlatform) {
-            if (REG_SORT_NAMES.WEBKIT.REG.test(this._userAgent) && REG_SORT_NAMES.CHROME.REG.test(this._userAgent)
-                && !REG_BROWSERS.IE.REG.test(this._userAgent)) {
+            if (REG_SORT_NAMES.WEBKIT.REG.test(this._userAgent) && REG_SORT_NAMES.CHROME.REG.test(this._userAgent)) {
                 _browserName = REG_BROWSERS.CHROME.VALUE;
             } else if (REG_SORT_NAMES.MOZILLA.REG.test(this._userAgent) &&
                 REG_BROWSERS.FIREFOX.REG.test(this._userAgent)) {
                 _browserName = REG_BROWSERS.FIREFOX.VALUE;
-            } else if (REG_BROWSERS.IE.REG.test(this._userAgent)) {
-                _browserName = REG_BROWSERS.IE.VALUE;
             } else if (REG_SORT_NAMES.SAFARI.REG.test(this._userAgent) &&
                 REG_SORT_NAMES.APPLE_WEBKIT.REG.test(this._userAgent) && !REG_SORT_NAMES.CHROME.REG.test(this._userAgent)) {
                 _browserName = REG_BROWSERS.SAFARI.VALUE;

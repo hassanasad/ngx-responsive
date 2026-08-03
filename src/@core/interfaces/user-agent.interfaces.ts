@@ -12,10 +12,6 @@ export interface IUserAgent {
     device: string;
     browser: string;
     pixelratio: string;
-    ie_version: {
-        name: string;
-        state: boolean;
-    };
     game_device: {
         name: string;
         state: boolean;

@@ -20,9 +20,8 @@ import { BROWSER_NAMES } from './browser-names.constants';
     DEVICES: ['mobile', 'tablet', 'smarttv', 'desktop'],
     STANDARD: ['iphone', 'ipad', 'android mobile', 'android tablet', 'windows phone'],
     ORIENTATION: ['portrait', 'landscape'],
-    BROWSERS: ['chrome', 'firefox', 'ie', 'safari', 'opera'],
-    PIXEL_RATIO: ['1x', 'retina', '4k'],
-    IE_VERSIONS: ['ie 9', 'ie 10', 'ie 11', 'ie +12']
+    BROWSERS: ['chrome', 'firefox', 'safari', 'opera'],
+    PIXEL_RATIO: ['1x', 'retina', '4k']
 }; */
 
 export const REG_WEARABLES = {
@@ -161,21 +160,6 @@ export const REG_GAME_DEVICES = {
     }
 };
 
-export const REG_IE_VERSIONS = {
-    MS_MSIE: {
-        REG: /msie/i,
-        VALUE: null
-    },
-    MS_TRIDENT: {
-        REG: /trident/i,
-        VALUE: null
-    },
-    MS_EDGE: {
-        REG: /edg/i,
-        VALUE: null
-    }
-};
-
 export const REG_BROWSERS = {
     CHROME: {
         REG: /(chrome|crios)\/([\d.]+)/,
@@ -196,10 +180,6 @@ export const REG_BROWSERS = {
     OPERA: {
         REG: /opera|opr|opios/i,
         VALUE: BROWSER_NAMES.OPERA
-    },
-    IE: {
-        REG: /msie|trident|edg/,
-        VALUE: BROWSER_NAMES.IE
     },
     SILK: {
         REG: /silk/i,

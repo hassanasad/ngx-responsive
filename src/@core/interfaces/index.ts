@@ -14,6 +14,5 @@ export * from './smart-tv.interfaces';
 export * from './game-devices.interfaces';
 export * from './bot.interfaces';
 export * from './browser-names.interfaces';
-export * from './ie-versions.interfaces';
 export * from './user-agent.interfaces';
 export * from './responsive.interfaces';

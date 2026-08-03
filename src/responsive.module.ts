@@ -11,7 +11,7 @@ import { ResponsiveState } from './@core/providers/responsive-state/responsive-s
 import { ResponsiveConfig } from './@core/providers/responsive-config/responsive-config';
 import { InjectionToken } from '@angular/core';
 import { BOOTSTRAP_DIRECTIVES } from './@directives/bootstrap/index';
-import { BROWSER_DIRECTIVES, BROWSER_INFO_RX, IE_INFO_RX } from './@directives/browsers/index';
+import { BROWSER_DIRECTIVES, BROWSER_INFO_RX } from './@directives/browsers/index';
 import { CUSTOMSIZES_DIRECTIVES } from './@directives/custom-sizes/index';
 import { DEVICES_DIRECTIVES, DEVICES_INFO_RX } from './@directives/devices/index';
 import { PIXELRATIO_DIRECTIVES } from './@directives/pixelratio/index';
@@ -80,7 +80,6 @@ export class ResponsiveModule {
             RESPONSIVE_SIZE_INFO_RX,
             USERAGENT_INFO_RX,
             BROWSER_INFO_RX,
-            IE_INFO_RX,
             DEVICES_INFO_RX]
         };
     }

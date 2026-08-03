@@ -32,7 +32,6 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
     private _subscription_Device!: Subscription;
     private _subscription_Orientation!: Subscription;
     private _subscription_Standard!: Subscription;
-    private _subscription_IE_Version!: Subscription;
     private _subscription_custom_sizes!: Subscription;
 
     protected _showWhenTrue!: boolean;
@@ -44,7 +43,6 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
         pixelratio: false,
         orientation: false,
         standard: false,
-        ie: false,
         sizes: false
     };
     private _isEnabledForPlatform: boolean;
@@ -79,9 +77,6 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
                 break;
             case 'pixelratio':
                 this.set_active_subscriptions.pixelratio = true;
-                break;
-            case 'ie':
-                this.set_active_subscriptions.ie = true;
                 break;
             case 'sizes':
                 this.set_active_subscriptions.sizes = true;
@@ -127,9 +122,6 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
                 this._subscription_Standard = this._responsiveState.standard$.subscribe(this.updateView.bind(this));
             }
 
-            if (this.set_active_subscriptions.ie) {
-                this._subscription_IE_Version = this._responsiveState.ieVersion$.subscribe(this.updateView.bind(this));
-            }
 
             if (this.set_active_subscriptions.sizes) {
                 this._subscription_custom_sizes = this._responsiveState.ancho$.subscribe(this.updateView.bind(this));
@@ -163,9 +155,6 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
                 this._subscription_Standard.unsubscribe();
             }
 
-            if (this.set_active_subscriptions.ie) {
-                this._subscription_IE_Version.unsubscribe();
-            }
 
             if (this.set_active_subscriptions.sizes) {
                 this._subscription_custom_sizes.unsubscribe();

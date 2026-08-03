@@ -21,13 +21,6 @@ export type TFirefox = 'firefox';
 
 /**
  * @type
- * @name TIe
- * @export TIe
- */
-export type TIe = 'ie';
-
-/**
- * @type
  * @name TSafari
  * @export TSafari
  */
@@ -66,5 +59,5 @@ export type TNA = 'NA';
  * @name TBrowserNames
  * @export TBrowserNames
  */
-export type TBrowserNames = TChrome | TFirefox | TIe | TSafari | TOpera | TSilk | TYandex | TNA;
+export type TBrowserNames = TChrome | TFirefox | TSafari | TOpera | TSilk | TYandex | TNA;
 

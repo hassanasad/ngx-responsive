@@ -5,7 +5,7 @@
  * @license MIT
  */
 import {
-    TChrome, TFirefox, TIe, TSafari, TSilk, TYandex, TNA, TOpera
+    TChrome, TFirefox, TSafari, TSilk, TYandex, TNA, TOpera
 } from '../types';
 
 /**
@@ -14,7 +14,6 @@ import {
 export interface IBrowserNames {
     CHROME: TChrome;
     FIREFOX: TFirefox;
-    IE:  TIe;
     SAFARI: TSafari;
     OPERA: TOpera;
     SILK: TSilk;
