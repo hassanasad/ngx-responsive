@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { Directive, Input, TemplateRef, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, ChangeDetectorRef , input } from '@angular/core';
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
 import { RESPONSIVE_BASE } from '../../@core/providers/responsive-base/responsive-base';
 import { PlatformService } from '../../@core/providers/platform-service/platform.service';
@@ -24,8 +24,10 @@ export class ShowItSizesDirective extends RESPONSIVE_BASE<any> {
         ) {
         super( templateRef, viewContainer, _responsiveState, cd, platformService );
     }
-     @Input() set showItSizes( _grid_state: any ) {
-        this.setGrid(_grid_state, 'sizes');
+     readonly showItSizes = input<any>();
+
+    protected override configure(): void {
+        this.setGrid(this.showItSizes(), 'sizes');
     }
 }
 
@@ -46,7 +48,9 @@ export class HideItSizesDirective extends RESPONSIVE_BASE<any> {
         super( templateRef, viewContainer, _responsiveState, cd, platformService );
     }
 
-    @Input() set hideItSizes( _grid_state: any ) {
-        this.setGrid( _grid_state, 'sizes' );
+    readonly hideItSizes = input<any>();
+
+    protected override configure(): void {
+        this.setGrid( this.hideItSizes(), 'sizes' );
     }
 }

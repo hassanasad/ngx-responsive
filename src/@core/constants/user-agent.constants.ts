@@ -9,10 +9,6 @@ export const USER_AGENT = {
     device: null,
     browser: null,
     pixelratio: null,
-    ie_version: {
-        name: null,
-        state: null
-    },
     game_device: {
         name: null,
         state: null

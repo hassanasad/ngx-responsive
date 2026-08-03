@@ -13,6 +13,6 @@ import { DevicesInfo } from './devices-info';
 export class DeviceInfoRx extends DevicesInfo  {
     constructor( 
         public _responsiveState: ResponsiveState,
-        @Inject(PLATFORM_ID) protected _platformId
+        @Inject(PLATFORM_ID) protected _platformId: Object
     ) { super(_responsiveState, _platformId); }
 }

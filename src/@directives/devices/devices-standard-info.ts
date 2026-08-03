@@ -15,12 +15,12 @@ import { ResponsiveState } from '../../@core/providers/responsive-state/responsi
 
 
 export abstract class DeviceStandardInfo {
-    public currentstate: string;
-    private _subscription: Subscription;
-    private _isBrowser: boolean = null;
+    public currentstate!: string;
+    private _subscription!: Subscription;
+    private _isBrowser = false;
     public replaySubject$: ReplaySubject<any> = new ReplaySubject();
     constructor( protected _responsiveState: ResponsiveState,
-        @Inject(PLATFORM_ID) protected _platformId
+        @Inject(PLATFORM_ID) protected _platformId: Object
     ) {
         this._isBrowser = isPlatformBrowser(this._platformId);
     }

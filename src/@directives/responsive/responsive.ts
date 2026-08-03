@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { Output, EventEmitter, Directive, Input, TemplateRef, ViewContainerRef, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Output, EventEmitter, Directive, Input, TemplateRef, ViewContainerRef, OnDestroy, ChangeDetectorRef , output , input, effect } from '@angular/core';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -20,35 +20,14 @@ import { PlatformService } from '../../@core/providers/platform-service/platform
     })
 export class ResponsiveDirective implements OnDestroy {
 
-    private _config: string | string[];
-    @Input() set responsive(config: string | string[]) {
-        this._config = config;
-        this.init_responsive();
-    }
-    get config(): string | string[]{
-        return this._config;
-    }
+    readonly responsive = input<string | string[]>();
     
-    // @Input() responsiveContainer: ResponsiveWindowDirective;
-    private _responsiveContainer:ResponsiveWindowDirective;
-    @Input() 
-    set responsiveContainer(value: ResponsiveWindowDirective) {
-      this._responsiveContainer = value;
-      if(this.config){
-          if(this._sizes_window !== null && this._sizes_window !== "window") {
-            throw new Error('Responsive directive cannot use window AND responsiveContainer together');
-          }
-          this.init_responsive();
-      }
-    }
-    get responsiveContainer(): ResponsiveWindowDirective{
-        return this._responsiveContainer;
-    }
+    readonly responsiveContainer = input<ResponsiveWindowDirective>();
 
-    @Output() changes: EventEmitter<any> = new EventEmitter();
+    readonly changes = output<any>();
     private _windows = null;
     private _window = null;
-    private _isEnabledForPlatform: boolean = null;
+    private _isEnabledForPlatform = false;
     public set_values: IResponsivePattern = {
         bootstrap: '',
         browser: '',
@@ -56,7 +35,6 @@ export class ResponsiveDirective implements OnDestroy {
         pixelratio: '',
         orientation: '',
         standard: '',
-        ie: '',
         sizes: 0
     };
 
@@ -68,7 +46,6 @@ export class ResponsiveDirective implements OnDestroy {
             pixelratio: false,
             orientation: false,
             standard: false,
-            ie: false,
             sizes: false
         };
     private match_multiple: IResponsiveSubscriptions =
@@ -79,23 +56,21 @@ export class ResponsiveDirective implements OnDestroy {
             pixelratio: false,
             orientation: false,
             standard: false,
-            ie: false,
             sizes: false
         };
 
-    private _subscription_Bootstrap: Subscription;
-    private _subscription_Browser: Subscription;
-    private _subscription_Pixel_Ratio: Subscription;
-    private _subscription_Device: Subscription;
-    private _subscription_Orientation: Subscription;
-    private _subscription_Standard: Subscription;
-    private _subscription_IE_Version: Subscription;
-    private _subscription_custom_sizes: Subscription;
+    private _subscription_Bootstrap!: Subscription;
+    private _subscription_Browser!: Subscription;
+    private _subscription_Pixel_Ratio!: Subscription;
+    private _subscription_Device!: Subscription;
+    private _subscription_Orientation!: Subscription;
+    private _subscription_Standard!: Subscription;
+    private _subscription_custom_sizes!: Subscription;
 
 
     protected _showWhenTrue = true;
     private _globalNoRepeat = 0;
-    private _noRepeatBootstrapName: string;
+    private _noRepeatBootstrapName!: string;
 
     private _bootstrapNoRepeat = 0;
     private _deviceNoRepeat = 0;
@@ -103,7 +78,6 @@ export class ResponsiveDirective implements OnDestroy {
     private _orientationNoRepeat = 0;
     private _browserNoRepeat = 0;
     private _pixelratioNoRepeat = 0;
-    private _ieNoRepeat = 0;
     private _sizesNoRepeat = 0;
 
     private _bootstrap_user_param: string[] = [];
@@ -112,7 +86,6 @@ export class ResponsiveDirective implements OnDestroy {
     private _orientation_user_param: string[] = [];
     private _browser_user_param: string[] = [];
     private _pixelratio_user_param: string[] = [];
-    private _ie_user_param: string[] = [];
     private _sizes_user_param: [number, number] = [0, Number.MAX_VALUE];
     private _sizes_window = 'window';
     // private _sizes_container = null;
@@ -127,10 +100,20 @@ export class ResponsiveDirective implements OnDestroy {
         platformService: PlatformService
     ) {
         this._isEnabledForPlatform = platformService.isEnabledForPlatform();
+        effect(() => {
+            const config = this.responsive();
+            const container = this.responsiveContainer();
+            if (config) {
+                if (container && this._sizes_window !== null && this._sizes_window !== 'window') {
+                    throw new Error('Responsive directive cannot use window AND responsiveContainer together');
+                }
+                this.init_responsive();
+            }
+        });
     }
 
     public init_responsive(): void {
-        const config: any = this.config;
+        const config: any = this.responsive();
         if (this.isJSON(config)) {
             if (!!config.bootstrap && this._bootstrapNoRepeat === 0) {
                 this._bootstrap_user_param = <string[]>(Array.isArray(config.bootstrap) ? config.bootstrap : [config.bootstrap]);
@@ -161,11 +144,6 @@ export class ResponsiveDirective implements OnDestroy {
                 this._pixelratio_user_param = <string[]>(Array.isArray(config.pixelratio) ? config.pixelratio : [config.pixelratio]);
                 this._pixelratioNoRepeat = 1;
                 this.set_active_subscriptions.pixelratio = true;
-            }
-            if (!!config.ie && this._ieNoRepeat === 0) {
-                this._ie_user_param = <string[]>(Array.isArray(config.ie) ? config.ie : [config.ie]);
-                this._ieNoRepeat = 1;
-                this.set_active_subscriptions.ie = true;
             }
             if (!!config.sizes && this._sizesNoRepeat === 0) {
                 const _min = config.sizes.min || 0;
@@ -218,9 +196,6 @@ export class ResponsiveDirective implements OnDestroy {
                 this._subscription_Standard = this._responsiveState.standard$.subscribe(this.updateStandard.bind(this));
             }
 
-            if (this.set_active_subscriptions.ie) {
-                this._subscription_IE_Version = this._responsiveState.ieVersion$.subscribe(this.updateIEversion.bind(this));
-            }
 
             if (this.set_active_subscriptions.sizes) {
                 this._subscription_custom_sizes = this._responsiveState.ancho$.subscribe(this.updateSizes.bind(this));
@@ -255,13 +230,9 @@ export class ResponsiveDirective implements OnDestroy {
         this.set_values.standard = value;
         this.updateEvent(this.set_values.standard, 'standard');
     }
-    private updateIEversion(value: string): void {
-        this.set_values.ie = value;
-        this.updateEvent(this.set_values.ie, 'ie');
-    }
     private updateSizes(value: number): void {
-        if(this.responsiveContainer){
-            this.set_values.sizes = this._isEnabledForPlatform ? this.responsiveContainer.getWidth() : 0;
+        if(this.responsiveContainer()){
+            this.set_values.sizes = this._isEnabledForPlatform ? this.responsiveContainer()!.getWidth() : 0;
         }else if (this._sizes_window){
             this.set_values.sizes = this._responsiveState.getWidth(this._sizes_window);
         }else{
@@ -290,9 +261,6 @@ export class ResponsiveDirective implements OnDestroy {
                     break;
                 case 'pixelratio':
                     this.showHideOperations(this._pixelratio_user_param.indexOf(param) !== -1, type_directive);
-                    break;
-                case 'ie':
-                    this.showHideOperations(this._ie_user_param.indexOf(param) !== -1, type_directive);
                     break;
                 case 'sizes':
                     this.showHideOperations(
@@ -323,9 +291,6 @@ export class ResponsiveDirective implements OnDestroy {
                     break;
                 case 'pixelratio':
                     this.showHideOperations(!(this._pixelratio_user_param.indexOf(param)), type_directive);
-                    break;
-                case 'ie':
-                    this.showHideOperations(!(this._ie_user_param.indexOf(param)), type_directive);
                     break;
                 case 'sizes':
                     this.showHideOperations(!((
@@ -397,9 +362,6 @@ export class ResponsiveDirective implements OnDestroy {
                 this._subscription_Standard.unsubscribe();
             }
 
-            if (this.set_active_subscriptions.ie) {
-                this._subscription_IE_Version.unsubscribe();
-            }
 
             if (this.set_active_subscriptions.sizes) {
                 this._subscription_custom_sizes.unsubscribe();

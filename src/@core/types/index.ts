@@ -13,4 +13,3 @@ export * from './game-devices.types';
 export * from './smart-tv.types';
 export * from './bot.types';
 export * from './browser-names.types';
-export * from './ie-versions.types';

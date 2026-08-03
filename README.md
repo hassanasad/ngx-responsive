@@ -1,10 +1,8 @@
 # DEPRECATED LIBRARY - no longer actively maintained.
 
-![ngx-responsive](/img/ng2-responsive-0-4-0-thin.jpg?raw=true)
-
 # Introduction
 
-Superset of **RESPONSIVE DIRECTIVES** to show or hide items according to the size of the device screen and another features in Angular 9.
+Superset of **RESPONSIVE DIRECTIVES** to show or hide items according to the size of the device screen and other features in Angular.
 
 ```bash
 npm i @viablelogic/ngx-responsive
@@ -18,18 +16,16 @@ npm i @viablelogic/ngx-responsive
 - Show and hide options.
 - Custom breaking points.
 - Debounce checking interval (default 100ms).
-- Browsers Detect: Chrome / Safari / Firefox / IE / Opera
-- Internet Explorer Versions Detect : IE 9 / IE 10 / IE 11 / IE +12
+- Browsers Detect: Chrome / Safari / Firefox / Opera
 - New standard devices: iPhone, iPad, Android Mobile, Android Tablet, Windows Phone.
 - Device orientation detect: portrait, landscape.
-- Directives Info: DeviceInfo, OrientationInfo, ResponsiveSizeInfo, DeviceStandardInfo, BrowserInfo, IeInfo.
+- Directives Info: DeviceInfo, OrientationInfo, ResponsiveSizeInfo, DeviceStandardInfo, BrowserInfo.
 - Directive: responsive - Detection of multiple functions at once.
 - Feature Responsive Directive - Boolean Events Emitter on change state:
 - Feature responsive-window : Capture the size of the parent element to show or hide fill elements. If the parent responsive size is x show or hide.
 - UserAgent information directive: Get te device, browser, os version and more from the user agent navigator in one event object.
 - **New Feature :** Reactive services that expose changes through observables:
   - BrowserInfoRx
-  - IeInfoRx
   - DeviceInfoRx
   - DeviceStandardInfoRx
   - OrientationInfoRx
@@ -41,7 +37,7 @@ npm i @viablelogic/ngx-responsive
 #### 1. Installing the package via npm
 
   ```bash
-  npm i ngx-responsive --save
+  npm i @viablelogic/ngx-responsive
   ```
 #### 2. Bootstrap the service
 
@@ -152,8 +148,7 @@ npm i @viablelogic/ngx-responsive
   ```typescript
     *responsive="{
       bootstrap: ['xl','lg','md','sm','xs'],
-      browser: ['chrome','firefox','ie','safari', 'opera'],
-      ie:['ie 9','ie 10','ie 11','ie +12'],
+      browser: ['chrome','firefox','safari', 'opera'],
       pixelratio:['1x','retina','4k'],
       standard:['iphone','ipad','android mobile','android tablet','windows phone'],
       orientation:['landscape','portrait'],
@@ -311,47 +306,19 @@ npm i @viablelogic/ngx-responsive
             <p *isFirefox>I'll show you if I'm a Firefox Browser.</p>
             <p *isSafari>I'll show you if I'm a Safari Browser.</p>
             <p *isOpera>I'll show you if I'm a Opera Browser.</p>
-            <p *isIE>I'll show you if I'm a Internet Explorer Browser.</p>
           `
       })
       ```
 
       - #### With multiple browsers detect combinations: show / hide options.
-        - #### Strings Multiple combinations = "['chrome','firefox','ie','safari', 'opera']"
+        - #### Strings Multiple combinations = "['chrome','firefox','safari', 'opera']"
 
         ```typescript
         @Component({
           selector: 'my-component',
           template: `
-            <p *showItBrowser="['ie','opera']">I'll show you if I'm a IE or Opera Browser.</p>
+            <p *showItBrowser="['safari','opera']">I'll show you if I'm a Safari or Opera Browser.</p>
             <p *hideItBrowser="['chrome','firefox','safari']">I'll hide you if I'm a Chrome, Firefox or Safari Browser.</p>
-          `
-        })
-        ```
-
-        - #### With Internet Explorer Version detection.
-
-        ```typescript
-        @Component({
-          selector: 'my-component',
-          template: `
-            <p *isIE9>I'll show you if I'm a Internet Explorer 9.</p>
-            <p *isIE10>I'll show you if I'm a Internet Explorer 10.</p>
-            <p *isIE11>I'll show you if I'm a Internet Explorer 11.</p>
-            <p *isIE12>I'll show you if I'm a Internet Explorer 12.</p>
-          `
-        })
-        ```
-
-      - #### With multiple Internet Explorer version detect: show / hide options.
-        - #### Strings Multiple combinations = "['ie 9','ie 10','ie 11','ie +12']"
-
-        ```typescript
-        @Component({
-          selector: 'my-component',
-          template: `
-            <p *showIEVersion="['ie 11','ie +12']">I'll show you if I'm a IE 11 browser or IE 12</p>
-            <p *hideIEVersion="['ie 9','ie 10']">I'll hide you if I'm IE 9 browser or IE 10.</p>
           `
         })
         ```
@@ -371,12 +338,8 @@ Description of the object given by the `(info)` event of the directive `user-age
 ```js
 {
   device: 'mobile' | 'tablet' | 'smarttv' | 'desktop',
-  browser: 'chrome' | 'firefox' | 'ie' | 'safari' | 'opera' | 'silk' | 'yandex' | 'NA',
+  browser: 'chrome' | 'firefox' | 'safari' | 'opera' | 'silk' | 'yandex' | 'NA',
   pixelratio:  '4k' | 'retina' | '1x',
-  ie_version: {
-      name: 'ie 7' | 'ie 8' | 'ie 9' | 'ie 10' | 'ie 11' | 'ie +12',
-      state: true | false
-  },
   game_device: {
       name:  'Playstation 4' | 'Playstation 3' | 'Xbox one' | 'Xbox' | 'Wii' | 'Wii U' | 'Nintendo 3DS' | 'Playstation Vita' | 'PSP'
       state: true | false
@@ -408,23 +371,6 @@ Description of the object given by the `(info)` event of the directive `user-age
   bot: true | false
 }
 ```
-
-# NEXT STEPS
-
-- Unit test and e2e.
-- Create a documentation page.
-- Work in demo page
-- Directive css classes:
-
-```html
-<h1 *responsive-css="{
-  bootstrap: {xl: 'micssclassxl', lg: 'micssclasslg'},
-  orientation:{landscape: 'micssclasslandscape'}
-}"></h1>
-
-```
-
-- animations show/hide in directives
 
 # Contributors
 

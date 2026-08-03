@@ -23,19 +23,18 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
 
     private _noRepeat = 0;
     private _sizes_grid_state: any;
-    private _others_grid_state: string[];
-    private _directive: string;
+    private _others_grid_state!: string[];
+    private _directive!: string;
 
-    private _subscription_Bootstrap: Subscription;
-    private _subscription_Browser: Subscription;
-    private _subscription_Pixel_Ratio: Subscription;
-    private _subscription_Device: Subscription;
-    private _subscription_Orientation: Subscription;
-    private _subscription_Standard: Subscription;
-    private _subscription_IE_Version: Subscription;
-    private _subscription_custom_sizes: Subscription;
+    private _subscription_Bootstrap!: Subscription;
+    private _subscription_Browser!: Subscription;
+    private _subscription_Pixel_Ratio!: Subscription;
+    private _subscription_Device!: Subscription;
+    private _subscription_Orientation!: Subscription;
+    private _subscription_Standard!: Subscription;
+    private _subscription_custom_sizes!: Subscription;
 
-    protected _showWhenTrue: boolean;
+    protected _showWhenTrue!: boolean;
 
     private set_active_subscriptions: IResponsiveSubscriptions = {
         bootstrap: false,
@@ -44,7 +43,6 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
         pixelratio: false,
         orientation: false,
         standard: false,
-        ie: false,
         sizes: false
     };
     private _isEnabledForPlatform: boolean;
@@ -80,9 +78,6 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
             case 'pixelratio':
                 this.set_active_subscriptions.pixelratio = true;
                 break;
-            case 'ie':
-                this.set_active_subscriptions.ie = true;
-                break;
             case 'sizes':
                 this.set_active_subscriptions.sizes = true;
                 break;
@@ -96,7 +91,12 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
         this._directive = directive;
     }
 
+    // Subclasses implement this to call setGrid() with their state/directive type.
+    // It runs before the subscriptions are wired up (previously done in the @Input setter).
+    protected configure(): void {}
+
     public ngOnInit() {
+        this.configure();
         if (this._isEnabledForPlatform) {
             if (this.set_active_subscriptions.bootstrap) {
                 this._subscription_Bootstrap = this._responsiveState.elemento$.subscribe(this.updateView.bind(this));
@@ -122,9 +122,6 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
                 this._subscription_Standard = this._responsiveState.standard$.subscribe(this.updateView.bind(this));
             }
 
-            if (this.set_active_subscriptions.ie) {
-                this._subscription_IE_Version = this._responsiveState.ieVersion$.subscribe(this.updateView.bind(this));
-            }
 
             if (this.set_active_subscriptions.sizes) {
                 this._subscription_custom_sizes = this._responsiveState.ancho$.subscribe(this.updateView.bind(this));
@@ -158,9 +155,6 @@ export abstract class RESPONSIVE_BASE<T> implements OnInit, OnDestroy {
                 this._subscription_Standard.unsubscribe();
             }
 
-            if (this.set_active_subscriptions.ie) {
-                this._subscription_IE_Version.unsubscribe();
-            }
 
             if (this.set_active_subscriptions.sizes) {
                 this._subscription_custom_sizes.unsubscribe();

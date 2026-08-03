@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { Directive, EventEmitter, Input, Output, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Directive, EventEmitter, Input, Output, ViewContainerRef, OnInit, OnDestroy, ChangeDetectorRef , output , input } from '@angular/core';
 
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
 import { ResponsiveSizeInfo } from './responsive-size-info';
@@ -12,11 +12,9 @@ import { PlatformService } from '../../@core/providers/platform-service/platform
 
 @Directive({ selector: 'responsiveSizeInfo' })
 export class ResponsiveSizeInfoDirective extends ResponsiveSizeInfo implements OnInit, OnDestroy {
-    public currentstate: string;
-    @Input() set responsiveSizeInfo(grid_state: string[] | string) {
-        this._updateData(this.currentstate);
-    }
-    @Output() statechanges: EventEmitter<any> = new EventEmitter();
+    public currentstate!: string;
+    readonly responsiveSizeInfo = input<string[] | string>();
+    readonly statechanges = output<any>();
 
     constructor(public _responsiveState: ResponsiveState,
         public viewContainer: ViewContainerRef,

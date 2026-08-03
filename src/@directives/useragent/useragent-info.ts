@@ -15,10 +15,10 @@ import { ResponsiveState } from '../../@core/providers/responsive-state/responsi
 
 export abstract class UserAgentInfo {
     public replaySubject$: ReplaySubject<any> = new ReplaySubject();
-    private _isBrowser: boolean = null;
-    private _subscription: Subscription;
+    private _isBrowser = false;
+    private _subscription!: Subscription;
     constructor(public _responsiveState: ResponsiveState,
-        @Inject(PLATFORM_ID) protected _platformId
+        @Inject(PLATFORM_ID) protected _platformId: Object
     ) {
         this._isBrowser = isPlatformBrowser(this._platformId);
     }

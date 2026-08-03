@@ -11,14 +11,14 @@ export class PlatformService {
   isBrowser: boolean;
 
   constructor(
-    @Inject(PLATFORM_ID) private readonly _platformId,
+    @Inject(PLATFORM_ID) private readonly _platformId: Object,
     @Inject(ResponsiveConfig) private responsiveConfig: ResponsiveConfig
   ) {
     this.isServer = isPlatformServer(_platformId);
     this.isBrowser = isPlatformBrowser(_platformId);
   }
 
-  public isEnabledForPlatform() {
-    return this.isBrowser || this.responsiveConfig.config.renderOnServer;
+  public isEnabledForPlatform(): boolean {
+    return this.isBrowser || (this.responsiveConfig.config.renderOnServer ?? false);
   }
 }
