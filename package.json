@@ -33,14 +33,14 @@
   "author": "Manu Cutillas <manucutillas@outlook.com>",
   "contributors": [
     "Christophe HOARAU (https://github.com/no-more)",
-    "Kamil Breguła (https://github.com/mik-laj)",
+    "Kamil Bregu\u0142a (https://github.com/mik-laj)",
     "Janne Julkunen (https://github.com/sconix)",
     "paulyipkh (https://github.com/paulyipkh)",
     "mburger81 (https://github.com/mburger81)",
     "Alyssa Brunswick (https://github.com/alyssabrunswick)",
     "Quentin (https://github.com/bobbybobby)",
     "Thomas Christensen (https://github.com/tocDK)",
-    "Christian Lüdemann (https://github.com/lydemann)",
+    "Christian L\u00fcdemann (https://github.com/lydemann)",
     "Matt Senter (https://github.com/MattSenter)"
   ],
   "license": "MIT",
@@ -72,7 +72,6 @@
     "jsdom": "^30.0.1",
     "ng-packagr": "^22.1.0",
     "rxjs": "~7.8.2",
-    "typescript": "~6.0.3",
-    "zone.js": "~0.16.0"
+    "typescript": "~6.0.3"
   }
 }

@@ -1,12 +1,9 @@
-import '@analogjs/vitest-angular/setup-zone';
-
 import { getTestBed } from '@angular/core/testing';
 import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
+  BrowserTestingModule,
+  platformBrowserTesting,
+} from '@angular/platform-browser/testing';
 
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting(),
-);
+// Zoneless test environment — no zone.js. The library drives change detection
+// via markForCheck(), so it works without Zone.js (see the *.zoneless.spec.ts).
+getTestBed().initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
