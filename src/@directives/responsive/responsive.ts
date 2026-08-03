@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { Output, EventEmitter, Directive, Input, TemplateRef, ViewContainerRef, OnDestroy, ChangeDetectorRef , output } from '@angular/core';
+import { Output, EventEmitter, Directive, Input, TemplateRef, ViewContainerRef, OnDestroy, ChangeDetectorRef , output , input, effect } from '@angular/core';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -20,30 +20,9 @@ import { PlatformService } from '../../@core/providers/platform-service/platform
     })
 export class ResponsiveDirective implements OnDestroy {
 
-    private _config!: string | string[];
-    @Input() set responsive(config: string | string[]) {
-        this._config = config;
-        this.init_responsive();
-    }
-    get config(): string | string[]{
-        return this._config;
-    }
+    readonly responsive = input<string | string[]>();
     
-    // @Input() responsiveContainer: ResponsiveWindowDirective;
-    private _responsiveContainer!:ResponsiveWindowDirective;
-    @Input() 
-    set responsiveContainer(value: ResponsiveWindowDirective) {
-      this._responsiveContainer = value;
-      if(this.config){
-          if(this._sizes_window !== null && this._sizes_window !== "window") {
-            throw new Error('Responsive directive cannot use window AND responsiveContainer together');
-          }
-          this.init_responsive();
-      }
-    }
-    get responsiveContainer(): ResponsiveWindowDirective{
-        return this._responsiveContainer;
-    }
+    readonly responsiveContainer = input<ResponsiveWindowDirective>();
 
     readonly changes = output<any>();
     private _windows = null;
@@ -127,10 +106,20 @@ export class ResponsiveDirective implements OnDestroy {
         platformService: PlatformService
     ) {
         this._isEnabledForPlatform = platformService.isEnabledForPlatform();
+        effect(() => {
+            const config = this.responsive();
+            const container = this.responsiveContainer();
+            if (config) {
+                if (container && this._sizes_window !== null && this._sizes_window !== 'window') {
+                    throw new Error('Responsive directive cannot use window AND responsiveContainer together');
+                }
+                this.init_responsive();
+            }
+        });
     }
 
     public init_responsive(): void {
-        const config: any = this.config;
+        const config: any = this.responsive();
         if (this.isJSON(config)) {
             if (!!config.bootstrap && this._bootstrapNoRepeat === 0) {
                 this._bootstrap_user_param = <string[]>(Array.isArray(config.bootstrap) ? config.bootstrap : [config.bootstrap]);
@@ -260,8 +249,8 @@ export class ResponsiveDirective implements OnDestroy {
         this.updateEvent(this.set_values.ie, 'ie');
     }
     private updateSizes(value: number): void {
-        if(this.responsiveContainer){
-            this.set_values.sizes = this._isEnabledForPlatform ? this.responsiveContainer.getWidth() : 0;
+        if(this.responsiveContainer()){
+            this.set_values.sizes = this._isEnabledForPlatform ? this.responsiveContainer()!.getWidth() : 0;
         }else if (this._sizes_window){
             this.set_values.sizes = this._responsiveState.getWidth(this._sizes_window);
         }else{

@@ -118,8 +118,8 @@ export class ResponsiveState {
     * @param _window
     */
     public registerWindow(rw: ResponsiveWindowDirective, _window: any = null) {
-        if (rw.name && !this._windows[rw.name]) {
-            this._windows[rw.name] = rw;
+        if (rw.name() && !this._windows[rw.name()]) {
+            this._windows[rw.name()] = rw;
             if (_window !== null) {
                 _window.dispatchEvent(new Event('resize'));
             }

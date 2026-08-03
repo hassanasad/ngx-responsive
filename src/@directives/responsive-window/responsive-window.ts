@@ -4,7 +4,7 @@
  *
  * @license MIT
  */
-import { DoCheck, Directive, Input, ElementRef, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { DoCheck, Directive, Input, ElementRef, OnInit, OnDestroy, ChangeDetectorRef , input } from '@angular/core';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ResponsiveState } from '../../@core/providers/responsive-state/responsive-state';
@@ -23,7 +23,7 @@ export class ResponsiveWindowDirective implements OnInit, OnDestroy, DoCheck {
     private element!: HTMLElement;
     private _isEnabledForPlatform = false;
 
-    @Input('responsive-window') name!: string;
+    readonly name = input<string>('', { alias: 'responsive-window' });
 
     public currentBreakpoint$: Observable<string>;
 
@@ -53,7 +53,7 @@ export class ResponsiveWindowDirective implements OnInit, OnDestroy, DoCheck {
 
     public ngDoCheck(): void {
         if (this._isEnabledForPlatform) {
-            const _update = this._ifValueChanged(this._noRepeat, this.name);
+            const _update = this._ifValueChanged(this._noRepeat, this.name());
             if (_update) {
                 this._responsiveState.unregisterWindow(this);
                 this._responsiveState.registerWindow(this);
