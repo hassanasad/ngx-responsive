@@ -323,7 +323,7 @@ export class HideItStandardDirective extends RESPONSIVE_BASE<any> {
 export class IsPortraitDirective extends RESPONSIVE_BASE<any> {
 
     protected _state = 'portrait';
-    protected _showWhenTrue = false;
+    protected _showWhenTrue = true;
 
     readonly isPortrait = input<string>();
 
@@ -347,7 +347,7 @@ export class IsPortraitDirective extends RESPONSIVE_BASE<any> {
 export class IsLandscapeDirective extends RESPONSIVE_BASE<any> {
 
     protected _state = 'landscape';
-    protected _showWhenTrue = false;
+    protected _showWhenTrue = true;
 
     readonly isLandscape = input<string>();
 
