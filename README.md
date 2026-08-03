@@ -1,10 +1,10 @@
-# DEPRECATED LIBRARY - no longer actively maintained.
-
-![ngx-responsive](/img/ng2-responsive-0-4-0-thin.jpg?raw=true)
+# ngx-responsive
 
 # Introduction
 
-Superset of **RESPONSIVE DIRECTIVES** to show or hide items according to the size of the device screen and another features in Angular 9.
+Superset of **RESPONSIVE DIRECTIVES** to show or hide items according to the size of the device screen and other features in Angular.
+
+Updated for **Angular 22** — the directives are standalone, signal-based, and zoneless-compatible (no `zone.js` dependency). Supports Angular 20–22.
 
 ```bash
 npm i @viablelogic/ngx-responsive
@@ -41,7 +41,7 @@ npm i @viablelogic/ngx-responsive
 #### 1. Installing the package via npm
 
   ```bash
-  npm i ngx-responsive --save
+  npm i @viablelogic/ngx-responsive
   ```
 #### 2. Bootstrap the service
 
@@ -408,23 +408,6 @@ Description of the object given by the `(info)` event of the directive `user-age
   bot: true | false
 }
 ```
-
-# NEXT STEPS
-
-- Unit test and e2e.
-- Create a documentation page.
-- Work in demo page
-- Directive css classes:
-
-```html
-<h1 *responsive-css="{
-  bootstrap: {xl: 'micssclassxl', lg: 'micssclasslg'},
-  orientation:{landscape: 'micssclasslandscape'}
-}"></h1>
-
-```
-
-- animations show/hide in directives
 
 # Contributors
 
